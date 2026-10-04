@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DeepRecap Myanmar</title>
+<style>
+body{margin:0;background:#0A0E1A;color:#fff;font-family:sans-serif;padding-bottom:100px}
+.header{background:#151A2A;padding:14px;display:flex;justify-content:space-between}
+.canvas{margin:15px;border:2px dashed #2D3748;border-radius:20px;padding:35px;text-align:center;background:#121826}
+button{background:#4F46E5;color:#fff;border:0;padding:16px;border-radius:14px;width:90%;margin:15px;font-size:17px;font-weight:bold}
+video{width:90%;border-radius:12px;margin-top:15px;display:none}
+#status{color:#0f0;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="header"><b>D DeepRecap</b><span>Studio</span></div>
+<div class="canvas" onclick="document.getElementById('f').click()">
+<h2>ဗီဒီယို တည့်ပါ</h2>
+<p>mp4 · mov · webm</p>
+<input type="file" id="f" hidden accept="video/*">
+<video id="v" controls></video>
+<div id="status"></div>
+</div>
+<button onclick="speak()">🎙️ မြန်မာအသံနဲ့ Recap ထုတ်</button>
+<script>
+let v=document.getElementById('v');
+document.getElementById('f').onchange=e=>{
+ let file=e.target.files[0];
+ v.src=URL.createObjectURL(file);
+ v.style.display='block';
+ document.getElementById('status').innerText='✅ '+file.name+' တင်ပြီးပြီ';
+};
+function speak(){
+ if(v.style.display=='none'){alert('Video အရင်ရွေး bro');return;}
+ let t="ဒီဇာတ်ဝင်ခန်းမှာ မင်းသားက မင်းသမီးကို ကယ်တင်ဖို့ ကြိုးစားနေပါတယ်။ ဇာတ်လမ်းက အရမ်းစိတ်ဝင်စားဖို့ကောင်းပါတယ်။";
+ document.getElementById('status').innerText='🎙️ မြန်မာအသံ ထွက်နေပြီ...';
+ let u=new SpeechSynthesisUtterance(t);
+ u.lang='my-MM';speechSynthesis.speak(u);
+}
+</script>
+</body>
+</html>
